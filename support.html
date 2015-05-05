@@ -1,0 +1,257 @@
+---
+layout: page
+title: Support
+permalink: /support/
+---
+
+<h2>Need help?</h2>
+<div class="row">
+
+    <p>Checkout our forum <a href="https://groups.google.com/forum/#!forum/biomaj">https://groups.google.com/forum/#!forum/biomaj</a></p>
+    <p>Some community db property files and post processes can be found at <a href="https://github.com/genouest/biomaj">https://github.com/genouest/biomaj</a></p>
+    <p>Get involved and share your data banks and processes with the community. Simply fork the repository, make your updates and a pull request.</p>
+
+
+</div>
+
+<div class="row home">
+    <div class="col-sm-2">
+        <a href="#bankproperties">Bank properties</a>
+    </div>
+    <div class="col-sm-2">
+        <a href="#writeprocess">Writing pre/post process</a>
+    </div>
+</div>
+
+<h2 id="bankproperties">Bank properties</h2>
+<div class="row home">
+    <div class="normalList">
+<p style="text-align: justify;">A bank for BioMAJ mainly consists in several properties defined in a .properties file.
+Although access to these properties has been made easier with BmajWatcher, they can be confusing for a new user.</p>
+<p style="text-align: justify;">The most useful properties will be presented here with a concrete example to clear things up.</p>
+<p style="text-align: justify;">Let's say we want to download uniprot bank from <a href="ftp://ftp.ebi.ac.uk/pub/databases/uniprot/current_release/knowledgebase/complete">here</a>:</p>
+&nbsp;
+
+
+<div class="helpMenu">
+<fieldset> <legend>Contents</legend>
+<ul>
+	<li><a href="#basics">Basics</a>
+<ol>
+	<li><a href="#download_from">Where to download the files from</a></li>
+	<li><a href="#download_to">Where to donwload the files to</a></li>
+	<li><a href="#filter">Filtering files</a></li>
+</ol>
+</li>
+	<li><a href="#meta_info">Meta information</a></li>
+	<li><a href="#mandatory">Additional mandatory properties</a></li>
+	<li><a href="#advanced">Advanced notions</a>
+<ol>
+	<li><a href="#release">Custom release number</a></li>
+	<li><a href="#reporting">Reporting</a></li>
+</ol>
+</li>
+	<li><a href="#organization">Properties organization</a></li>
+</ul>
+</fieldset>
+</div>
+<div class="propertyHelpTitle"><a name="basics">Basics</a></div>
+<p style="text-align: justify;">We need to tell BioMAJ :</p>
+
+<ol style="text-align: justify;">
+	<li>
+<div class="propertyHelpSubTitle"><a name="download_from">Where to download the files from</a></div>
+<ul> This is done thanks to 4 properties :&nbsp;
+	<li><strong>server </strong>: Self explanatory :<span style="color: #993300;"> <span style="color: #3b349e; font-family: Helvetica Neue,Arial,Helvetica,Nimbus Sans L,sans-serif;">ftp.ebi.ac.uk</span></span></li>
+	<li><strong>remote.dir </strong>: path to directory that contains the required files, note that the '/' at the beginning is mandatory : <span style="color: #3b349e; font-family: Helvetica Neue,Arial,Helvetica,Nimbus Sans L,sans-serif;"> /pub/databases/uniprot/current_release/knowledgebase/complete/</span></li>
+	<li><strong>remote.files</strong> : contains one or more regular expressions that describe the files to retrieve.
+Let's say we want the following files :&nbsp;
+<ul>
+	<li>All uniprot files : <code>^uniprot.*</code></li>
+	<li>reldate.txt : <code>reldate.txt</code></li>
+	<li>All README files : <code>^README.*</code></li>
+</ul>
+Final value is : <span style="color: #3b349e; font-family: Helvetica Neue,Arial,Helvetica,Nimbus Sans L,sans-serif;">^uniprot.* reldate.txt ^README.*</span></li>
+	<li><strong>protocol</strong> : tells what protocol to use to download the file. The protocol must not appear in the <code>server</code> property. In our case it is <span style="color: #3b349e; font-family: Helvetica Neue,Arial,Helvetica,Nimbus Sans L,sans-serif;">ftp</span>.</li>
+</ul>
+</li>
+&nbsp;
+	<li>
+<div class="propertyHelpSubTitle"><a name="download_to">Where to download the files to</a></div>
+<ul> 3 properties are involved with this:&nbsp;
+	<li><strong>data.dir</strong> : this is the root directory where all banks are downloaded : <span style="color: #3b349e; font-family: Helvetica Neue,Arial,Helvetica,Nimbus Sans L,sans-serif;">/db/</span></li>
+	<li><strong>dir.version</strong> : this property is optional, it tells where the bank will be downloaded under <code>data.dir</code>. The default value is the bank name : <span style="color: #3b349e; font-family: Helvetica Neue,Arial,Helvetica,Nimbus Sans L,sans-serif;">uniprot</span></li>
+	<li><strong>offline.dir.name</strong> : another optional properties that tells the temporary directory name. Files are first downloaded in that directory, then moved to <code>dir.version</code>. Default value is &lt;bankname&gt;_tmp: <span style="color: #3b349e; font-family: Helvetica Neue,Arial,Helvetica,Nimbus Sans L,sans-serif;">uniprot_tmp</span></li>
+An additional property related to your repository management is <strong>keep.old.version</strong>. It basically tells how many versions of your bank you want BioMAJ to keep. If value is <span style="color: #3b349e; font-family: Helvetica Neue,Arial,Helvetica,Nimbus Sans L,sans-serif;">1</span>, BioMAJ will keep the current version and the previous one.</ul>
+</li>
+&nbsp;
+	<li>
+<div class="propertyHelpSubTitle"><a name="filter">Which files to filter</a></div>
+<ul>
+	<li><strong>local.files </strong>: Once files have been downloaded and extracted (if needed) in <code>data.dir/offline.dir.name</code> directory, they are moved to the production directory (<code>data.dir/dir.version</code>). You can tell BioMAJ to move only some of these files with that property. As for <code>remote.files</code> property, the value is a regular expression. In our case let's say we want to move everything : <span style="color: #3b349e; font-family: Helvetica Neue,Arial,Helvetica,Nimbus Sans L,sans-serif;">.*</span></li>
+</ul>
+</li>
+</ol>
+<div class="propertyHelpTitle"><a name="meta_info">Meta information</a></div>
+<ul style="text-align: justify;"> Some properties that describe your bank :&nbsp;
+	<li><strong>db.name</strong> : this property holds the name of the bank. <span style="color: #3b349e; font-family: Helvetica Neue,Arial,Helvetica,Nimbus Sans L,sans-serif;">uniprot </span>in our case</li>
+	<li><strong>db.fullname</strong> : the field usually contains a description about the bank, for example : <span style="color: #3b349e; font-family: Helvetica Neue,Arial,Helvetica,Nimbus Sans L,sans-serif;">Some description...</span></li>
+	<li><strong>db.formats </strong>: For informative and classification purpose only, you can specify the data formats of your bank : <span style="color: #3b349e; font-family: Helvetica Neue,Arial,Helvetica,Nimbus Sans L,sans-serif;">fasta,blast,xml,xsd,swissprot,emboss</span>
+It will allow you to filter the bank list in the web interface or via the REST API.</li>
+	<li><strong>db.type</strong> : As for <code>db.formats</code>, you can specify the bank type. In our case it's <span style="color: #3b349e; font-family: Helvetica Neue,Arial,Helvetica,Nimbus Sans L,sans-serif;">proteic</span>. Only one type can be specified for a bank, but you can structure it hierarchically with slashes, for example <span style="color: #3b349e; font-family: Helvetica Neue,Arial,Helvetica,Nimbus Sans L,sans-serif;">genomic/eucaryotic</span>. It is used in the web interface to display the different types as a tree.</li>
+</ul>
+<div class="propertyHelpTitle"><a name="mandatory">Additional mandatory properties</a></div>
+<ul>
+	<li><strong>bank.num.threads</strong> : Tells how many banks can be updated in parallel. Useful for batch updates : <code>biomaj --update bank1 bank2 bank3 bank4...</code>. We can set the value to <span style="color: #3b349e; font-family: Helvetica Neue,Arial,Helvetica,Nimbus Sans L,sans-serif;">2</span>.</li>
+	<li><strong>files.num.threads</strong> : Tells how many files BioMAJ can download in parallel for a bank. Let's say <span style="color: #3b349e; font-family: Helvetica Neue,Arial,Helvetica,Nimbus Sans L,sans-serif;">4</span>.</li>
+	<li><strong>log.files</strong> : BioMAJ logs in his database every downloaded file. When an update process is run, it verifies that none of these have been removed. If this property is activated, BioMAJ will also handle archives and verify that all the extracted files are present. Set this property to <span style="color: #3b349e; font-family: Helvetica Neue,Arial,Helvetica,Nimbus Sans L,sans-serif;">true</span> to activate it.</li>
+	<li><strong>release.dateformat </strong>: Date format used to build to version : <span style="color: #3b349e; font-family: Helvetica Neue,Arial,Helvetica,Nimbus Sans L,sans-serif;">yyyy-MM-dd</span></li>
+	<li><strong>frequency.update</strong> : Usually set to <span style="color: #3b349e; font-family: Helvetica Neue,Arial,Helvetica,Nimbus Sans L,sans-serif;">0</span>, this property holds the value in days BioMAJ has to wait before each update. For example, if value is 15, the bank will be updated at most every 15 days.</li>
+</ul>
+<p style="text-align: justify;">So far, our file looks like :</p>
+
+<div class="propertyCode" style="text-align: justify;">db.name=uniprot
+db.fullname=Some description...
+db.formats=fasta,blast,xml,xsd,swissprot,emboss
+db.type=proteic
+
+server=ftp.ebi.ac.uk
+protocol=ftp
+remote.dir=/pub/databases/uniprot/current_release/knowledgebase/complete/
+remote.files=^uniprot.*$ ^reldate.txt$ ^README.*$
+local.files=.*
+
+frequency.update=0
+
+data.dir=/db/
+offline.dir.name=uniprot_tmp
+dir.version=uniprot
+
+files.num.threads=4
+bank.num.threads=2
+release.dateformat=yyyy-MM-dd
+
+log.files=true
+
+keep.old.version=1</div>
+&nbsp;
+<div class="propertyHelpTitle"><a name="advanced">Advanced notions</a></div>
+<ol style="text-align: justify;">
+	<li>
+<div class="propertyHelpSubTitle"><a name="release">Custom release number</a></div>
+As we have not defined anything specific on how BioMAJ has to get the bank version, the default behaviour is to set as the release number the most recent file date on the server. In our case, that would be <span style="color: #3b349e; font-family: Helvetica Neue,Arial,Helvetica,Nimbus Sans L,sans-serif;">2011-02-08</span> (format as defined in <code>release.dateformat</code>). There are two other ways to do differently:
+<ul>
+	<li>From a specific file content :
+<ul>
+	<li><strong>release.file </strong>: that property tells what file on the remote server to look into : <span style="color: #3b349e; font-family: Helvetica Neue,Arial,Helvetica,Nimbus Sans L,sans-serif;">reldate.txt</span></li>
+	<li><strong>release.regexp </strong>: The value of this property is a regular expression that describes the string that must be considered as the release : <span style="color: #3b349e; font-family: Helvetica Neue,Arial,Helvetica,Nimbus Sans L,sans-serif;">\d+\p{Punct}+\d*</span></li>
+Back to our example, if we consider <code>reldate.txt</code> content :
+<div class="propertyCode">UniProt Knowledgebase Release 2011_02 consists of:
+UniProtKB/Swiss-Prot Release 2011_02 of 08-Feb-2011
+UniProtKB/TrEMBL Release 2011_02 of 08-Feb-2011</div>
+The release would be <code>2011_02</code>.</ul>
+</li>
+	<li>From a file name : The difference with above is that you must not specify <code>release.file</code>. If you put between parenthesis the regular expression that corresponds to the version, BioMAJ will automatically try to extract it from each of the <code>remote.files</code> names.
+If for example, we have on a remote server a file named <code>version_file_12.3.txt</code>, the following value for <code>release.regexp</code> would return <code>12.3</code> : <code>^version_file_(\p{Digit}+\.p{Digit}+).*</code></li>
+</ul>
+</li>
+<p style="text-align: justify;">The file now looks like :</p>
+&nbsp;
+<div class="propertyCode" style="text-align: justify;">db.name=uniprot
+db.fullname=Some description...
+db.formats=fasta,blast,xml,xsd,swissprot,emboss
+db.type=proteic
+
+server=ftp.ebi.ac.uk
+protocol=ftp
+remote.dir=/pub/databases/uniprot/current_release/knowledgebase/complete/
+remote.files=^uniprot.*$ ^reldate.txt$ ^README.*$
+local.files=.*
+
+release.file=reldate.txt
+release.regexp=\d+\p{Punct}+\d*
+
+frequency.update=0
+
+data.dir=/db/
+offline.dir.name=uniprot_tmp
+dir.version=uniprot
+
+files.num.threads=4
+banks.num.threads=2
+release.dateformat=yyyy-MM-dd
+
+log.files=true
+
+keep.old.version=1</div>
+&nbsp;
+	<li>
+<div class="propertyHelpSubTitle"><a name="reporting">Reporting</a></div>
+<ul>
+	<li>Logging level : You can change the logging level with the property <strong>historic.logfile.level </strong>with the following values : ERR, WARN, INFO, VERBOSE, DEBUG</li>
+	<li>Mailing : BioMAJ can mail a report after each bank update. The subject of the mail contains 4 items :
+<ul>
+	<li>The bank name</li>
+	<li>The workflow status <code>STATUS[TRUE|FALSE]</code> : <code>TRUE</code> means that everything went well (at least on BioMAJ point view), <code>FALSE</code> means that the process  failed.</li>
+	<li>The update status <code>UPDATE[TRUE|FALSE]</code> : <code>TRUE</code> means that a new version was found on the remote server. Note that it does not mean that the update succeeded, just that BioMAJ downloaded/will have to download new files. <code>FALSE</code> means that we already have the latest version.</li>
+	<li>If <code>UPDATE</code> is <code>TRUE</code>, an item information is the version found on the remote server.</li>
+</ul>
+To activate mail reporting, you have to fill in the following properties:
+<ul>
+	<li><strong>mail.from </strong>: mail address of the sender</li>
+	<li><strong>mail.smtp.host </strong>: smtp server address</li>
+	<li><strong>mail.admin </strong>: list of mail addresses separated by commas the reports will be sent to.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<div class="propertyHelpTitle"><a name="organization">Properties organization</a></div>
+<p style="text-align: justify;">We have pretty much covered all the most useful properties, but things can be done regarding the properties organization.
+You might have noticed that some properties such as <code>data.dir</code>, <code>banks.num.threads</code> can be common to all the banks.
+You can declare such properties in a special file named <code>global.properties</code>. That file holds any property that you want all your banks to inherit (<code>global.properties</code> shipped with BioMAJ contains most of these properties).
+BioMAJ can also handle another level of inclusion for properties common to only a few banks. These common properties are filled in a separate file that must be explicitly included in the appropriate banks with a special propety : <code>include.properties</code>
+For example, <code>include.properties=file1.properties,file2.properties</code>.</p>
+
+</div>
+</div>
+
+
+<h2 id="writeprocess">Writing a pre/post process</h2>
+<div class="row home">
+
+<div class="normalList">
+<p style="text-align: justify;">Even though BioMAJ is shipped with some post-processes, you might need to write your owns.</p>
+<p style="text-align: justify;">Here are some points that will help you in the process :</p>
+
+<ul style="text-align: justify;">
+	<li> BioMAJ can run scripts or binaries</li>
+	<li>The executables must be placed in the directory <code>process.dir</code></li>
+	<li>You  have access to several environment variables that are set by BioMAJ. The  exhaustive list is available in the user guide, but the most useful are :
+<ul>
+	<li><code>$datadir</code> : root directory for all production directories</li>
+	<li><code>$dirversion</code> : production directory</li>
+	<li>The current location of the files in the post-process stage can be obtained by : <code>$datadir/$dirversion/future_release</code></li>
+	<li>The downloaded raw data is available in the directory : <code>$datadir/$dirversion/future_release/flat</code></li>
+</ul>
+</li>
+	<li>BioMAJ allows basic and advanced interaction with the executable
+<ul>
+	<li>Basic  interaction : BioMAJ retrieves the return value at the end of the  program. If no value is returned or the value is null, the execution of  the program is considered to be successful. If any other value is  received, an error is returned and the worklow is stopped.</li>
+</ul>
+</li>
+</ul>
+<p style="text-align: justify;">An example of a script that concatenates several files into one, and adds the resulting file as a dependency :</p>
+
+<pre>workdir=$datadir/$dirversion/future_release/flat
+cd $workdir;
+for file in $@
+do
+files=$files" "$file
+done
+cat $files &gt; $workdir/output ;
+</pre>
+</div>
+
+
+</div>

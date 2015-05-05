@@ -1,0 +1,27 @@
+<header class="site-header">
+</header>
+<!--[if lt IE 7]>
+    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+<![endif]-->
+
+
+<!-- Navigation & Logo-->
+<div class="mainmenu-wrapper">
+    <div class="container">
+        <nav id="mainmenu" class="mainmenu">
+            <ul class="menu-items">
+                <li class="logo-wrapper"><a href="{{"/index.html"|prepend: site.baseurl}}">BioMAJ</a></li>
+
+                  {% for page in site.html_pages %}
+                    {% if page.title %}
+                    <li>
+                        <a href="{{page.url}}">{{ page.title }}</a>
+                    </li>
+                    {% endif %}
+                  {% endfor %}
+
+            </ul>
+        </nav>
+    </div>
+    <div class="bgimage"></div>
+</div>

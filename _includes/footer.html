@@ -1,0 +1,30 @@
+<!-- Footer -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-footer col-md-4 col-xs-12">
+                <h3>Stay Connected</h3>
+                <ul class="contact-us-details">
+                     <li><a class="mail" href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+                </ul>
+                <a href="https://twitter.com/intent/tweet?button_hashtag={{site.twitter_username}}" class="twitter-hashtag-button" data-size="large" data-related="{{site.twitter_username}}">Tweet #{{site.twitter_username}}</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="footer-copyright">&copy; 2015 BioMAJ. All rights reserved.</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Javascripts -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="{{ "/js/jquery-1.9.1.min.js"| prepend: site.baseurl }}"><\/script>')</script>
+<script src="{{ "/js/bootstrap.min.js" | prepend: site.baseurl }}"></script>
+<script src="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.js"></script>
+<script src="{{"/js/jquery.fitvids.js"| prepend: site.baseurl }}"></script>
+<script src="{{"/js/jquery.sequence-min.js"| prepend: site.baseurl }}"></script>
+<script src="{{"/js/jquery.bxslider.js"| prepend: site.baseurl }}"></script>
+<script src="{{"/js/main-menu.js"| prepend: site.baseurl }}"></script>
+<script src="{{"/js/template.js"| prepend: site.baseurl }}"></script>

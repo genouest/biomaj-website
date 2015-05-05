@@ -1,0 +1,101 @@
+---
+layout: default
+---
+
+<div class="home">
+
+<h2>BioMAJ</h2>
+<div class="row">
+    <div class="col-sm-6">
+        <p style="text-align: justify;">BioMAJ (BIOlogie Mise A Jour) is a workflow engine  dedicated to data synchronization and processing.</p>
+        <p>The software automates the update cycle and the supervision of the locally mirrored databank  repository.</p>
+        <p>The software is free and released under AGPL v3 based licence.</p>
+    </div>
+    <div class="col-sm-6">
+        <img class="img-responsive center-block" title="cycle_biomaj" src="{{"/img/cycle_biomaj.png"| prepend: site.baseurl}}" alt="" width="227" height="160" />
+    </div>
+</div>
+<div class="row">
+    <h2>Why BioMAJ ?</h2>
+    <p style="text-align: justify;">Biological  knowledge in a genomic or post-genomic context is mainly based on  transitive bioinformatics analysis consisting in an iterative and  periodic comparison of data newly produced against corpus of known  information. In large scale projects, this approach needs accurate  bioinformatics software, pipelines, interfaces and numerous  heterogeneous biological banks, which are distributed around the world.  An integration process that consists in mirroring and indexing this data  is obviously an essential preliminary step but represents a major  challenge and a bottleneck in most bioinformatics projects; BioMAJ addresses this problem by proposing a flexible and robust automated environment.</p>
+</div>
+<div class="row">
+<h2 style="text-align: left;">Application Features</h2>
+
+<ul>
+	<li><strong>Synchronisation :</strong>
+<ul>
+	<li>Multiple remote protocols (ftp, sftp, http, local copy, ...)</li>
+</ul>
+<ul>
+	<li>Data transfers integrity check</li>
+	<li>Release versioning using a incremental approach</li>
+	<li>Multi threading</li>
+	<li>Data extraction (gzip, tar, bzip)</li>
+	<li>Data tree directory normalisation</li>
+</ul>
+</li>
+</ul>
+<ul>
+	<li><strong>Pre &amp;Post processing :</strong>
+<ul>
+	<li>Advanced workflow description (D.A.G) using Easy normalized syntax language</li>
+</ul>
+<ul>
+	<li>Post-process indexation for various bioinformatics software (blast, srs, fastacmd, readseq, etc...)</li>
+    <li>Optional file and meta-data indexing for better search within banks</li>
+</ul>
+<ul>
+	<li>Easy integration of personal scripts for bank post-processing automation</li>
+</ul>
+</li>
+</ul>
+<ul>
+	<li><strong>Supervision :</strong>
+<ul>
+	<li>Administration web interface</li>
+	<li>Repository statistics</li>
+</ul>
+<ul>
+	<li>Mail alerts for the update cycle supervision</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+  <h3>News</h3>
+
+  <ul class="post-list">
+    {% for post in site.posts %}
+      <li>
+        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+        <p>
+          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+          {{ post.excerpt }}
+        </p>
+
+      </li>
+    {% endfor %}
+  </ul>
+
+  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+  </div>
+  <div class="col-sm-6">
+    <h3>Some BioMAJ users</h3>
+    <ul>
+    <li><a href="http://banks.genouest.org/BmajWatcher">GenOuest (Rennes)</a></li>
+    <li><a href="http://www.proteome.univ-rennes1.fr/index.php?lang=en">Plate-forme protéomique (Rennes)</a></li>
+    <li><a href="http://bioinfo.genopole-toulouse.prd.fr/index.php?id=41">Genotoul (Toulouse)</a></li>
+    <li><a href="http://genome.jouy.inra.fr/biomaj">MIGALE (Jouy-en-Josas)</a></li>
+    <li><a href="http://abims.sb-roscoff.fr">ABiMS (Roscoff)</a></li>
+    <li><a href="http://www.ibcp.fr">IBCP (Lyon)</a></li>
+    <li><a href="http://pbil.univ-lyon1.fr/biomaj/rapport/">PBIL (Lyon)</a></li>
+    <li><a href="http://www.popgenie.org/">PopGenIE (Umeå)</a></li>
+    <li><a href="http://www.iphc.cnrs.fr/">IPHC (Strasbourg)</a></li>
+    <li><a href="https://biomaj.it.pasteur.fr/">Institut Pasteur</a></li>
+    <small>Using BioMAJ? To be mentioned <a href="mailto:biomaj@genouest.org">contact us</a>.</small>
+    </ul>
+  </div>
+
+</div>
