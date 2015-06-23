@@ -1,0 +1,15 @@
+---
+layout: post
+title:  "new maintenance release 3.0.7"
+date:   2015-06-23 10:46:08
+categories: biomaj update
+---
+A new maintenance release with bug fixes is out.
+
+[Documentation](https://github.com/genouest/biomaj/wiki)
+
+[biomaj source code](https://github.com/genouest/biomaj)
+
+[biomaj-watcher source code](https://github.com/genouest/biomaj-watcher)
+
+[biomaj-migrate migration scripts](https://github.com/genouest/biomaj-migrate)
