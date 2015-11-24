@@ -1,0 +1,24 @@
+---
+layout: post
+title:  "new maintenance release 3.0.12 and Docker image"
+date:   2015-11-24 06:08:00
+categories: biomaj update
+---
+A new maintenance release with bug fixes.
+
+Changes:
+
+* Fix index deletion on bank removal
+* Fix lock errors on dir creation for multi-threads,
+      pre-create directroy structure in offline directory
+* Fix #26: save error when too many files in bank
+
+A Docker image is also available (genouest/biomaj)
+
+[Documentation](https://github.com/genouest/biomaj/wiki)
+
+[biomaj source code](https://github.com/genouest/biomaj)
+
+[biomaj-watcher source code](https://github.com/genouest/biomaj-watcher)
+
+[biomaj-migrate migration scripts](https://github.com/genouest/biomaj-migrate)
