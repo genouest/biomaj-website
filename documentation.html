@@ -9,6 +9,72 @@ permalink: /documentation/
 
 Documentation is on the Wiki of the <a href="https://github.com/genouest/biomaj/wiki">web site</a>
 
+<h2>BioMAJ in 5 minutes with Docker</h2>
+
+You can get a running BioMAJ instance running with Docker in 5 minutes
+
+<pre><code>
+docker pull genouest/biomaj
+docker pull mongo
+docker run --name biomaj-mongodb -d mongo
+# Wait ~10 seconds for mongo to initialize
+# Create a local directory where databases will be permanently stored
+# *local_path*
+docker run --rm -v local_path:/var/lib/biomaj --link biomaj-mongodb:biomaj-mongodb --help
+</code></pre>
+
+Copy your bank properties in directory <i>local_path/data</i> and post-processes
+(if any) in <i>local_path/process</i>
+
+<h3>Sample bank for testing</h3>
+
+Copy in <i>local_path/data/alu.properties</i>
+
+<pre><code>
+[GENERAL]
+
+######################
+### Initialization ###
+
+db.fullname="alu.n : alu repeat element. alu.a : translation of alu.n repeats"
+db.name=alu
+db.type=nucleic_protein
+
+offline.dir.name=biomaj/ncbi/blast/alu_tmp
+dir.version=ncbi/blast/alu
+
+frequency.update=0
+
+### Synchronization ###
+
+files.num.threads=1
+
+# NCBI (download fasta)
+protocol=ftp
+server=ftp.ncbi.nih.gov
+remote.dir=/blast/db/FASTA/
+
+release.file=
+release.regexp=
+release.file.compressed=
+
+remote.files=^alu.*\.gz$
+
+#Uncomment if you don't want to extract the data files.
+#no.extract=true
+
+local.files=^alu\.(a|n).*
+
+</code></pre>
+
+<pre><code>
+docker run --rm -v local_path:/var/lib/biomaj --link biomaj-mongodb:biomaj-mongodb --update --bank alu
+
+docker run --rm -v local_path:/var/lib/biomaj --link biomaj-mongodb:biomaj-mongodb --status
+</code></pre>
+
+
+
 <h2>Biomaj v1</h2>
 
 <ul>
